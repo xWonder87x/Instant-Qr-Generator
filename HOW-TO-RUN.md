@@ -10,7 +10,7 @@ You don't need Node or Python. Use **one** of these:
    ```
    C:\Users\odiss\OneDrive\Documents\GitHub\Qr-Generator
    ```
-2. **Double-click `standalone.html`**  
+2. **Double-click `index.html`**  
    It should open in your default browser (Edge, Chrome, etc.).
 
 If the page loads and you see "QR Generator" and a text box, it works. Type a URL, see the QR code, and use the buttons.
@@ -23,7 +23,7 @@ If the page loads and you see "QR Generator" and a text box, it works. Type a UR
 
 1. In Cursor, press **Ctrl+Shift+X** to open the Extensions panel.
 2. Search for **Live Server** and install it (by Ritwick Dey).
-3. In the file list, **right-click `standalone.html`** → **Open with Live Server**.  
+3. In the file list, **right-click `index.html`** → **Open with Live Server**.  
    A browser tab will open with the app.
 
 ---
@@ -37,8 +37,8 @@ If the page loads and you see "QR Generator" and a text box, it works. Type a UR
    cd "C:\Users\odiss\OneDrive\Documents\GitHub\Qr-Generator"
    python -m http.server 8080
    ```
-4. In your browser, open **http://localhost:8080/standalone.html**.
+4. In your browser, open **http://localhost:8080/index.html**.
 
 ---
 
-**Summary:** Try **Option 1** (double-click `standalone.html`). If it doesn't work, use **Option 2** (Live Server) or Python (**Option 3**).
+**Summary:** Try **Option 1** (double-click `index.html`). If it doesn't work, use **Option 2** (Live Server) or Python (**Option 3**).
