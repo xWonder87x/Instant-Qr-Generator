@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QR Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <style>
       :root, [data-theme="dark"] { --bg:#0f0f12; --bg-soft:#16161a; --surface:#1c1c21; --surface-hover:#25252b; --border:#2e2e36; --text:#fafafa; --text-muted:#71717a; --accent:#6366f1; --accent-hover:#818cf8; --radius:16px; --radius-sm:10px; --shadow:0 8px 32px rgba(0,0,0,0.35); --focus-ring:rgba(99,102,241,0.35); }
       html[data-theme="light"] { --bg:#f8f9fc; --bg-soft:#eef0f5; --surface:#fff; --surface-hover:#f1f3f6; --border:#e4e6eb; --text:#18181b; --text-muted:#71717a; --accent:#4f46e5; --accent-hover:#6366f1; --shadow:0 8px 32px rgba(0,0,0,0.08); --focus-ring:rgba(79,70,229,0.3); }
       * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; font-family: "DM Sans", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; transition: background-color 0.25s ease, color 0.2s ease; }
-      .app { max-width: 520px; margin: 0 auto; padding: 2rem 1.5rem; min-height: 100vh; display: flex; flex-direction: column; }
-      .header { margin-bottom: 2rem; }
-      .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.35rem; }
-      .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; margin: 0; color: var(--text); }
-      .theme-toggle { width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.1s; }
+      body { margin: 0; min-height: 100vh; font-family: "Merriweather", Georgia, serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; transition: background-color 0.25s ease, color 0.2s ease; }
+      .app { max-width: 520px; margin: 0 auto; padding: 2rem 1.5rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+      .header { position: relative; margin-bottom: 2rem; text-align: center; padding-right: 48px; }
+      .logo { font-size: 1.875rem; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 0.35rem 0; color: var(--text); }
+      .theme-toggle { position: absolute; top: 0; right: 0; width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.1s; }
       .theme-toggle:hover { background: var(--surface-hover); border-color: var(--text-muted); }
       .theme-toggle:active { transform: scale(0.96); }
       .theme-icon { font-size: 1.25rem; line-height: 1; }
@@ -24,20 +23,19 @@
       html[data-theme="dark"] .theme-icon.moon { display: inline; }
       html[data-theme="light"] .theme-icon.sun { display: inline; }
       html[data-theme="light"] .theme-icon.moon { display: none; }
-      .tagline { margin: 0; color: var(--text-muted); font-size: 0.9375rem; }
-      .main { flex: 1; }
+      .tagline { margin: 0; color: var(--text-muted); font-size: 1.0625rem; }
+      .main { width: 100%; }
       .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
       .hero-card { display: flex; flex-direction: column; gap: 2rem; }
       .input-block .label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
-      .input { width: 100%; padding: 1rem 1.25rem; font: inherit; font-size: 1rem; color: var(--text); background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); resize: none; transition: border-color 0.2s, box-shadow 0.2s; }
+      .input { width: 100%; height: 2.75rem; padding: 0.5rem 1.25rem; font: inherit; font-size: 1rem; color: var(--text); background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); resize: none; transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box; }
       .input::placeholder { color: var(--text-muted); }
       .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--focus-ring); }
-      .char-count { display: block; text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem; }
       .preview-block { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
       .preview-wrap { display: flex; align-items: center; justify-content: center; min-height: 240px; width: 100%; background: var(--bg-soft); border-radius: var(--radius-sm); border: 2px dashed var(--border); padding: 2rem; transition: background-color 0.25s ease, border-color 0.25s ease; }
       .preview-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; color: var(--text-muted); font-size: 0.9375rem; text-align: center; }
       .preview-placeholder.hidden { display: none; }
-      .placeholder-icon { font-size: 3rem; opacity: 0.5; line-height: 1; }
+      .placeholder-icon { width: 4rem; height: 4rem; opacity: 0.5; color: var(--text-muted); }
       .qr-canvas { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
       .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
       .btn { padding: 0.75rem 1.5rem; font: inherit; font-size: 0.9375rem; font-weight: 500; border-radius: var(--radius-sm); cursor: pointer; border: none; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
@@ -47,7 +45,7 @@
       .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
       .btn-secondary:hover:not(:disabled) { background: var(--surface-hover); border-color: var(--text-muted); }
       .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-      .footer { text-align: center; padding-top: 2rem; margin-top: auto; }
+      .footer { text-align: center; padding-top: 1rem; }
       .footer p { margin: 0; font-size: 0.8125rem; color: var(--text-muted); }
       @media (max-width: 480px) { .app { padding: 1.25rem 1rem; } .card { padding: 1.5rem; } .preview-wrap { min-height: 200px; padding: 1.5rem; } }
     </style>
@@ -55,26 +53,32 @@
   <body>
     <div class="app">
       <header class="header">
-        <div class="header-inner">
-          <h1 class="logo">QR Generator</h1>
-          <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
-            <span class="theme-icon sun" aria-hidden="true">☀️</span>
-            <span class="theme-icon moon" aria-hidden="true">🌙</span>
-          </button>
-        </div>
-        <p class="tagline">Paste a URL or type any text — get a QR code instantly</p>
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+          <span class="theme-icon sun" aria-hidden="true">☀️</span>
+          <span class="theme-icon moon" aria-hidden="true">🌙</span>
+        </button>
+        <h1 class="logo">QR Generator</h1>
+        <p class="tagline">Generate your QR code instantly for free.</p>
       </header>
       <main class="main">
         <div class="hero-card card">
           <div class="input-block">
-            <label for="content" class="label">URL or text</label>
-            <textarea id="content" class="input" rows="2" placeholder="https://example.com" maxlength="2000"></textarea>
-            <span class="char-count"><span id="charCount">0</span> / 2000</span>
+            <textarea id="content" class="input" rows="1" placeholder="Type a text or URL..." maxlength="2000"></textarea>
           </div>
           <div class="preview-block">
             <div class="preview-wrap">
               <div class="preview-placeholder" id="placeholder">
-                <div class="placeholder-icon">▣</div>
+                <div class="placeholder-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="7" height="7" rx="1" fill="currentColor"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1" fill="currentColor"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1" fill="currentColor"/>
+                    <rect x="14" y="14" width="2" height="2" fill="currentColor"/>
+                    <rect x="18" y="14" width="3" height="3" rx="0.5" fill="currentColor"/>
+                    <rect x="14" y="18" width="3" height="3" rx="0.5" fill="currentColor"/>
+                    <rect x="11" y="11" width="2" height="2" fill="currentColor"/>
+                  </svg>
+                </div>
                 <span>Your QR code will appear here</span>
               </div>
               <canvas id="qrCanvas" class="qr-canvas" style="display: none;"></canvas>
@@ -86,12 +90,11 @@
           </div>
         </div>
       </main>
-      <footer class="footer"><p>Free · No account · No data stored</p></footer>
+      <footer class="footer"><p>100% free • No sign-up required • No data stored</p></footer>
     </div>
     <script type="module">
       import QRCode from "https://esm.sh/qrcode@1.5.3";
       const contentEl = document.getElementById("content");
-      const charCountEl = document.getElementById("charCount");
       const placeholderEl = document.getElementById("placeholder");
       const qrCanvas = document.getElementById("qrCanvas");
       const downloadPngBtn = document.getElementById("downloadPng");
@@ -99,7 +102,6 @@
       const themeToggle = document.getElementById("themeToggle");
       let lastSvgString = "";
       const QR_OPTS = { width: 256, margin: 2, color: { dark: "#111827", light: "#ffffff" }, errorCorrectionLevel: "M" };
-      function updateCharCount() { charCountEl.textContent = contentEl.value.length; }
       function renderQR() {
         const text = (contentEl.value || "").trim();
         if (!text) {
@@ -156,7 +158,7 @@
           if (saved === "light" || saved === "dark") return saved;
           if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
         } catch (_) {}
-        return "dark";
+        return "light";
       }
       function setTheme(theme) {
         const value = theme === "light" ? "light" : "dark";
@@ -164,15 +166,14 @@
         try { localStorage.setItem(STORAGE_KEY, value); } catch (_) {}
       }
       function toggleTheme() {
-        setTheme((root.getAttribute("data-theme") || "dark") === "dark" ? "light" : "dark");
+        setTheme((root.getAttribute("data-theme") || "light") === "light" ? "dark" : "light");
       }
       setTheme(getTheme());
       if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
-      contentEl.addEventListener("input", () => { updateCharCount(); renderQR(); });
-      contentEl.addEventListener("paste", () => { setTimeout(() => { updateCharCount(); renderQR(); }, 0); });
+      contentEl.addEventListener("input", renderQR);
+      contentEl.addEventListener("paste", () => { setTimeout(renderQR, 0); });
       downloadPngBtn.addEventListener("click", downloadPng);
       downloadSvgBtn.addEventListener("click", downloadSvg);
-      updateCharCount();
     </script>
   </body>
 </html>
