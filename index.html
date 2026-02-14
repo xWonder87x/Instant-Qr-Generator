@@ -47,6 +47,9 @@
       .btn:disabled { opacity: 0.5; cursor: not-allowed; }
       .footer { text-align: center; padding-top: 1rem; }
       .footer p { margin: 0; font-size: 0.8125rem; color: var(--text-muted); }
+      .footer a { color: var(--text-muted); font-size: 0.8125rem; text-decoration: none; transition: opacity 0.2s; }
+      .footer a:hover { opacity: 0.85; }
+      .footer a img { display: block; height: 2.5rem; width: auto; margin: 0 auto; }
       @media (max-width: 480px) { .app { padding: 1.25rem 1rem; } .card { padding: 1.5rem; } .preview-wrap { min-height: 200px; padding: 1.5rem; } }
     </style>
   </head>
@@ -90,7 +93,10 @@
           </div>
         </div>
       </main>
-      <footer class="footer"><p>100% free • No sign-up required • No data stored</p></footer>
+      <footer class="footer">
+        <p>100% free • No sign-up required • No data stored</p>
+        <p style="margin-top: 0.75rem;"><a href="https://buymeacoffee.com/xwonder87x" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><img src="assets/bmc-logo.png" alt="Buy me a coffee" /></a></p>
+      </footer>
     </div>
     <script type="module">
       import QRCode from "https://esm.sh/qrcode@1.5.3";
